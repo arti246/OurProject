@@ -1,12 +1,15 @@
 # OurProject
-Реализованная функциональность
+Реализованная функциональность:
+
 Функционал 1;
 Функционал 2;
 Функционал 3;
+
 Особенность проекта в следующем:
 Киллерфича-1;
 Киллерфича-2;
 Киллерфича-3;
+
 Основной стек технологий:
 LAMP/LEMP/FAMP/FEMP.
 HTML, CSS, JavaScript, TypeScript.
@@ -18,6 +21,7 @@ Gulp, Webpack, Babel.
 React (Next.js), Vue (Nuxt.js), Angular.
 Git, Mercurial.
 Jenkins, Gitlab.
+
 Демо
 Демо сервиса доступно по адресу: http://demo.test
 
