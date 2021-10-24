@@ -12,6 +12,7 @@
 HTML, CSS, JavaScript, JQuery.
 Git, Mercurial.
 PHP, Laravel
+Leaflet, OpenStoreMap
 
 Демо
 Демо сервиса доступно по адресу: http://demo.test
