@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+</head>
+<body>
+
+    <script src="js/Jquery.js"></script>
+    <div id="map">
+        <script>
+            var map = L.map('map').setView([51.505, -0.09], 13);
+            map.setView([52.608826, 39.599229], 11);
+            L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+
+            /*map.createPane('labels');
+            map.getPane('labels').style.zIndex = 650;
+            map.getPane('labels').style.pointerEvents = 'none';
+            var positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+                attribution: '©OpenStreetMap, ©CartoDB'
+            }).addTo(map);
+
+            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+                attribution: '©OpenStreetMap, ©CartoDB',
+                pane: 'labels'
+            }).addTo(map);
+
+            var geojson = L.geoJson(GeoJsonData, geoJsonOptions).addTo(map);
+            var positronLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+                attribution: '©OpenStreetMap, ©CartoDB',
+                pane: 'labels'
+            }).addTo(map);
+            var geojson = L.geoJson(GeoJsonData, geoJsonOptions).addTo(map);
+            geojson.eachLayer(function (layer) {
+                layer.bindPopup(layer.feature.properties.name);
+            });
+            map.fitBounds(geojson.getBounds());*/
+
+        </script>
+<!--<div class="block">
+            <header>
+                <input type="checkbox" id="checkbox-menu">
+                <label for="checkbox-menu">
+                    <span class="toggle"><img src="img/menu.png" height="22" width="22" alt=""/></span>
+                    <ul class="menu touch">
+                        <li><a href="#">Оптимальный маршрут</a></li>
+                        <li><a href="#">Техника</a></li>
+                        <li><a href="#">Участки</a></li>
+                    </ul>
+                </label>
+            </header>
+        </div>-->
+        
+    
+
+    <script>
+        var loc1, loc2;
+        map.on('click', function(e) {
+            onMapClick(e);
+        });
+        function onMapClick(e) {
+            if (loc1 == null) {
+                loc1 = new L.marker(e.latlng, {draggable: 'true'});
+                loc1.on('dragend', function (event) {
+                    //отправляем запрос маршрута
+                });
+                map.addLayer(loc1);
+            } else if (loc2 == null) {
+                loc2 = new L.marker(e.latlng, {draggable: 'true'});
+                loc2.on('dragend', function (event) {
+                    //отправляем запрос марурута
+                });
+                map.addLayer(loc2);
+                //отправляем запрос маршрута
+            }
+        }
+        var polyline;
+
+        function sendPost() {
+            if (loc2 != null && loc1 != null) {
+                var p1 = loc1.getLatLng(),
+                    p2 = loc2.getLatLng();
+                $.post(
+                    //куда шлем запрос,
+                    {l1: p1.lat + ',' + p1.lng, l2: p2.lat + ',' + p2.lng},
+                    function (data) {
+                        if (data) {
+                            if (polyline) {
+                                map.removeLayer(polyline);
+                            }
+                            var points = data;
+                            polyline = new L.polyline(points, {color: 'red'});
+                            map.addLayer(polyline);
+                            map.fitBounds(polyline.getBounds());
+                        }
+                    },
+                    "json"
+                );
+            }
+        }
+    </script>
+
+
+
+</body>
+</html>
